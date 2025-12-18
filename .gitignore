@@ -16,9 +16,6 @@ env/
 ENV/
 .venv
 
-# Pipenv
-*.lock  # Optional - some people commit this, some don't
-
 # IDEs
 .vscode/
 .idea/
@@ -31,7 +28,7 @@ ENV/
 Thumbs.db
 desktop.ini
 
-# Audio/Media files (generated during testing)
+# Audio / Media files (generated during testing)
 *.mp3
 *.wav
 *.webm
@@ -40,14 +37,14 @@ desktop.ini
 # Logs
 *.log
 
-# Jupyter Notebooks (if you use them)
+# Jupyter
 .ipynb_checkpoints/
 
 # Pytest
 .pytest_cache/
 .coverage
 
-# Model files (if you download large models locally)
+# Model files
 *.pth
 *.bin
 *.onnx
