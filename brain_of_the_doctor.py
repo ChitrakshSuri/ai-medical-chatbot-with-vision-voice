@@ -37,4 +37,4 @@ chat_completion = client.chat.completions.create(
     model=model
 )
 
-print(chat_completion)
+print(chat_completion.choices[0].message.content)
