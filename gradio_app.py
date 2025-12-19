@@ -1,10 +1,11 @@
-# Voicebot UI with Gradio - Auto-Stop Version
+# Voicebot UI with Gradio - Auto-Stop Version with Autoplay
 import gradio as gr
 from brain_of_the_doctor import encode_image, analyze_image_with_query
 from voice_of_the_patient import record_audio, transcribe_with_groq
 from voice_of_the_doctor_updated import tts_elevenlabs
 import os
 import tempfile
+import base64
 
 system_prompt = """
 You are acting as a qualified medical doctor for educational purposes.
@@ -39,7 +40,7 @@ def record_and_process(image_filepath, progress=gr.Progress()):
         file_path=temp_audio,
         timeout=10,
         phrase_time_limit=30,
-        pause_threshold=2.0  # Stops after 2 seconds of silence
+        pause_threshold=2.0
     )
     
     progress(0.4, desc="Transcribing audio...")
@@ -73,7 +74,7 @@ def record_and_process(image_filepath, progress=gr.Progress()):
     return speech_to_text_output, doctor_response, voice_of_doctor, temp_audio
 
 
-# Create interface with better layout
+# Create interface with autoplay
 with gr.Blocks(title="AI Doctor with Vision and Voice") as iface:
     gr.Markdown("# 🏥 AI Doctor with Vision and Voice")
     gr.Markdown("""
@@ -81,7 +82,7 @@ with gr.Blocks(title="AI Doctor with Vision and Voice") as iface:
     1. Upload a medical image (optional)
     2. Click **'🎤 Start Recording'** button
     3. **Speak your concern** (recording auto-stops after 2 seconds of silence)
-    4. Get AI diagnosis and voice response
+    4. Get AI diagnosis and voice response (plays automatically)
     """)
     
     with gr.Row():
@@ -89,7 +90,7 @@ with gr.Blocks(title="AI Doctor with Vision and Voice") as iface:
             image_input = gr.Image(
                 type='filepath', 
                 label="📸 Upload Medical Image (Optional)",
-                height=400  # Fixed height
+                height=400
             )
             record_btn = gr.Button("🎤 Start Recording & Analyze", variant="primary", size="lg")
         
@@ -101,7 +102,10 @@ with gr.Blocks(title="AI Doctor with Vision and Voice") as iface:
     
     with gr.Row():
         patient_audio = gr.Audio(label="🎤 Your Recording")
-        doctor_audio = gr.Audio(label="🔊 Doctor's Voice Response")
+        doctor_audio = gr.Audio(
+            label="🔊 Doctor's Voice Response",
+            autoplay=True  # Enable autoplay
+        )
     
     record_btn.click(
         fn=record_and_process,
