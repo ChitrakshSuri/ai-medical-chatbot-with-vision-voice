@@ -73,7 +73,7 @@ def record_and_process(image_filepath, progress=gr.Progress()):
     return speech_to_text_output, doctor_response, voice_of_doctor, temp_audio
 
 
-# Create interface with button-triggered recording
+# Create interface with better layout
 with gr.Blocks(title="AI Doctor with Vision and Voice") as iface:
     gr.Markdown("# 🏥 AI Doctor with Vision and Voice")
     gr.Markdown("""
@@ -85,19 +85,23 @@ with gr.Blocks(title="AI Doctor with Vision and Voice") as iface:
     """)
     
     with gr.Row():
-        image_input = gr.Image(type='filepath', label="📸 Upload Medical Image (Optional)")
-    
-    record_btn = gr.Button("🎤 Start Recording & Analyze", variant="primary", size="lg")
+        with gr.Column(scale=1):
+            image_input = gr.Image(
+                type='filepath', 
+                label="📸 Upload Medical Image (Optional)",
+                height=400  # Fixed height
+            )
+            record_btn = gr.Button("🎤 Start Recording & Analyze", variant="primary", size="lg")
+        
+        with gr.Column(scale=1):
+            transcription_output = gr.Textbox(label="📝 What You Said", lines=3)
+            doctor_output = gr.Textbox(label="🩺 Doctor's Diagnosis", lines=6)
     
     gr.Markdown("---")
     
     with gr.Row():
-        with gr.Column():
-            transcription_output = gr.Textbox(label="📝 What You Said", lines=3)
-            doctor_output = gr.Textbox(label="🩺 Doctor's Diagnosis", lines=5)
-        with gr.Column():
-            patient_audio = gr.Audio(label="🎤 Your Recording")
-            doctor_audio = gr.Audio(label="🔊 Doctor's Voice Response")
+        patient_audio = gr.Audio(label="🎤 Your Recording")
+        doctor_audio = gr.Audio(label="🔊 Doctor's Voice Response")
     
     record_btn.click(
         fn=record_and_process,
@@ -105,4 +109,4 @@ with gr.Blocks(title="AI Doctor with Vision and Voice") as iface:
         outputs=[transcription_output, doctor_output, doctor_audio, patient_audio]
     )
 
-iface.launch(debug=True, theme=gr.themes.Soft())
+iface.launch(debug=True)
