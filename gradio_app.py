@@ -49,7 +49,7 @@ iface = gr.Interface(
     outputs=[
         gr.Textbox(label="Speech to Text"),
         gr.Textbox(label="Doctor's Response"),
-        gr.Audio("Temp.mp3")
+        gr.Audio(label="Doctor's Voice")
     ],
     title="AI Doctor with Vision and Voice"
 )

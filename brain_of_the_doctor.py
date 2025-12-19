@@ -13,7 +13,7 @@ def encode_image(image_path):
 # Step 3: Setup Multimodal LLM
 query = "is there something wrong with my face?"
 model = "meta-llama/llama-4-scout-17b-16e-instruct"
-def analyze_image_with_query(query, model, encoded_image):
+def analyze_image_with_query(query, encoded_image, model):
     client = Groq()
     messages = [
         {
