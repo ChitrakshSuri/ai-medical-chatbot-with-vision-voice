@@ -8,7 +8,7 @@ from elevenlabs import ElevenLabs
 # -----------------------------
 # Config
 # -----------------------------
-USE_ELEVENLABS = True
+USE_ELEVENLABS = True #False top use gTTS
 AUDIO_DIR = "audio"
 os.makedirs(AUDIO_DIR, exist_ok=True)
 
