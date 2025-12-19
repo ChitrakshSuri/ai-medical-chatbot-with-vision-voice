@@ -5,7 +5,7 @@ import os
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
 
 # Step 2: Convert image to required format
-# image_path = 'acne.jpg'
+# image_path = 'assets/images/acne.jpg'
 def encode_image(image_path):
     image_file = open(image_path, "rb")  # read binary
     return base64.b64encode(image_file.read()).decode('utf-8')
