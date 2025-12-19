@@ -74,7 +74,7 @@ def record_and_process(image_filepath, progress=gr.Progress()):
 
 
 # Create interface with button-triggered recording
-with gr.Blocks(title="AI Doctor with Vision and Voice", theme=gr.themes.Soft()) as iface:
+with gr.Blocks(title="AI Doctor with Vision and Voice") as iface:
     gr.Markdown("# 🏥 AI Doctor with Vision and Voice")
     gr.Markdown("""
     ### How to use:
@@ -105,4 +105,4 @@ with gr.Blocks(title="AI Doctor with Vision and Voice", theme=gr.themes.Soft()) 
         outputs=[transcription_output, doctor_output, doctor_audio, patient_audio]
     )
 
-iface.launch(debug=True)
+iface.launch(debug=True, theme=gr.themes.Soft())
